@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Calculator } from 'lucide-react';
 
-export default function ChickenBreastPage() {
+export default function TeffPage() {
   const [quantity, setQuantity] = useState('');
   const [unit, setUnit] = useState('grams');
   const [result, setResult] = useState(null);
 
   const proteinPer = {
-    grams: 0.3100,
-    serving: 31
+    grams: 0.1300,
+    serving: 13
   };
 
   const calculateProtein = () => {
@@ -22,8 +22,8 @@ export default function ChickenBreastPage() {
       : Math.round(quantity * proteinPer.serving * 10) / 10;
     
     const calories = unit === 'grams'
-      ? Math.round(quantity * 1.65)
-      : Math.round(quantity * 165);
+      ? Math.round(quantity * 3.67)
+      : Math.round(quantity * 367);
 
     setResult({ protein, calories, quantity, unit });
   };
@@ -45,26 +45,26 @@ export default function ChickenBreastPage() {
         <div className="text-sm text-gray-600 mb-4">
           <a href="/" className="hover:text-indigo-600">Home</a> / 
           <a href="/foods" className="hover:text-indigo-600 ml-1">Foods</a> / 
-          <span className="text-gray-900 ml-1">Chicken Breast</span>
+          <span className="text-gray-900 ml-1">Teff</span>
         </div>
 
         <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl p-8 text-white mb-8">
-          <h1 className="text-4xl font-bold mb-4">How Much Protein in Chicken Breast?</h1>
-          <div className="text-6xl font-bold mb-2">31g</div>
+          <h1 className="text-4xl font-bold mb-4">How Much Protein in Teff?</h1>
+          <div className="text-6xl font-bold mb-2">13g</div>
           <div className="text-xl text-indigo-100">per 100g</div>
         </div>
 
         <div className="grid md:grid-cols-3 gap-4 mb-8">
           <div className="bg-white rounded-lg p-6 shadow-md">
-            <div className="text-3xl font-bold text-gray-900 mb-2">31g</div>
+            <div className="text-3xl font-bold text-gray-900 mb-2">13g</div>
             <div className="text-gray-600">protein per 100g</div>
           </div>
           <div className="bg-white rounded-lg p-6 shadow-md">
-            <div className="text-3xl font-bold text-gray-900 mb-2">165</div>
+            <div className="text-3xl font-bold text-gray-900 mb-2">367</div>
             <div className="text-gray-600">calories per 100g</div>
           </div>
           <div className="bg-white rounded-lg p-6 shadow-md">
-            <div className="text-3xl font-bold text-gray-900 mb-2">3.6g</div>
+            <div className="text-3xl font-bold text-gray-900 mb-2">2.4g</div>
             <div className="text-gray-600">fat per 100g</div>
           </div>
         </div>
@@ -119,34 +119,34 @@ export default function ChickenBreastPage() {
         </div>
 
         <article className="bg-white rounded-2xl p-8 shadow-md mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">About Chicken Breast</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">About Teff</h2>
           <p className="text-gray-700 mb-6">
-            Chicken Breast is a nutritious food that provides 31g of protein per 100g serving. 
-            With 165 calories per 100g, it's an energy-dense protein source.
+            Teff is a nutritious food that provides 13g of protein per 100g serving. 
+            With 367 calories per 100g, it's an energy-dense protein source.
           </p>
 
           <h3 className="text-xl font-bold text-gray-900 mb-3">Nutritional Profile</h3>
           <ul className="list-disc list-inside text-gray-700 space-y-2 mb-6">
-            <li><strong>Protein:</strong> 31g per 100g</li>
-            <li><strong>Calories:</strong> 165 per 100g</li>
-            <li><strong>Fat:</strong> 3.6g per 100g</li>
-            <li><strong>Protein-to-Calorie Ratio:</strong> 18.8%</li>
+            <li><strong>Protein:</strong> 13g per 100g</li>
+            <li><strong>Calories:</strong> 367 per 100g</li>
+            <li><strong>Fat:</strong> 2.4g per 100g</li>
+            <li><strong>Protein-to-Calorie Ratio:</strong> 3.5%</li>
           </ul>
 
-          <h3 className="text-xl font-bold text-gray-900 mb-3">How Chicken Breast Fits Your Daily Protein Needs</h3>
+          <h3 className="text-xl font-bold text-gray-900 mb-3">How Teff Fits Your Daily Protein Needs</h3>
           <div className="bg-gray-50 rounded-lg p-6 mb-6">
             <div className="space-y-3">
               <div className="flex justify-between items-center">
                 <span className="text-gray-700">For 54g daily protein goal:</span>
-                <span className="text-indigo-600 font-semibold">174g of Chicken Breast</span>
+                <span className="text-indigo-600 font-semibold">415g of Teff</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-gray-700">For 109g daily protein goal:</span>
-                <span className="text-indigo-600 font-semibold">352g of Chicken Breast</span>
+                <span className="text-indigo-600 font-semibold">838g of Teff</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-gray-700">For 150g daily protein goal:</span>
-                <span className="text-indigo-600 font-semibold">484g of Chicken Breast</span>
+                <span className="text-indigo-600 font-semibold">1154g of Teff</span>
               </div>
             </div>
           </div>
