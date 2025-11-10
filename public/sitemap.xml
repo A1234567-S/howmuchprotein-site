@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://howmuchprotein.in/</loc>
+    <lastmod>2025-01-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>
+```
+
+5. Click **"Commit changes"**
+6. Click **"Commit changes"** again in the popup
+
+### 2. Create `public/robots.txt`
+
+1. Click **"Add file"** again
+2. Select **"Create new file"**
+3. Type filename: `public/robots.txt`
+   - Since `public` folder now exists, it will just add the file there
+4. Paste this content:
+```
+User-agent: *
+Allow: /
+
+Sitemap: https://howmuchprotein.in/sitemap.xml
+```
+
+5. Click **"Commit changes"**
+6. Click **"Commit changes"** again
+
+---
+
+## Visual Guide:
+
+When typing `public/sitemap.xml`, it will look like this:
+```
+[public] / [sitemap.xml]
+  ↑         ↑
+ folder    filename
+```
+
+The `/` creates the folder automatically!
+
+---
+
+## After You Commit:
+
+Your file structure will look like:
+```
+howmuchprotein-site/
+├── public/              ← NEW folder
+│   ├── sitemap.xml      ← NEW file
+│   └── robots.txt       ← NEW file
+├── src/
+├── index.html
+└── ... other files
