@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import App from './App'
+import FoodsList from './FoodsList'
 import ChickenBreastPage from './ChickenBreastPage'
 import EggsPage from './EggsPage'
 import SalmonPage from './SalmonPage'
@@ -109,6 +110,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
+        <Route path="/foods" element={<FoodsList />} />
         <Route path="/foods/chicken-breast" element={<ChickenBreastPage />} />
         <Route path="/foods/eggs" element={<EggsPage />} />
         <Route path="/foods/salmon" element={<SalmonPage />} />
