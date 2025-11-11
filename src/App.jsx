@@ -1,5 +1,11 @@
+# COPY THIS ENTIRE CODE AND REPLACE YOUR App.jsx
+
+```jsx
 import React, { useState, useEffect } from 'react';
 import { Calculator, Activity, Target, TrendingUp, Globe } from 'lucide-react';
+import Navigation from './Navigation'
+import FoodsList from './FoodsList'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 // Translation data
 const translations = {
@@ -37,7 +43,6 @@ const translations = {
     ],
     disclaimer1: "This calculator uses science-based formulas for active individuals.",
     disclaimer2: "Consult a nutritionist for personalized advice.",
-    // SEO Content
     seoTitle: "How Much Protein Do You Need Daily?",
     seoIntro1: "Protein is essential for building and repairing muscle tissue, supporting immune function, and maintaining overall health. Your daily protein needs depend on several factors including your body weight, activity level, and fitness goals.",
     seoIntro2: "The general recommendation for adults is 0.8 grams of protein per kilogram of body weight (0.36g per pound). However, if you're active or trying to build muscle, you'll need significantly more—typically between 1.6 to 2.2 grams per kilogram (0.7-1g per pound).",
@@ -316,7 +321,6 @@ export default function ProteinCalculator() {
 
   const t = translations[language];
 
-  // Load saved language preference
   useEffect(() => {
     const savedLang = localStorage.getItem('proteinCalcLang');
     if (savedLang && translations[savedLang]) {
@@ -324,7 +328,6 @@ export default function ProteinCalculator() {
     }
   }, []);
 
-  // Save language preference
   const handleLanguageChange = (lang) => {
     setLanguage(lang);
     localStorage.setItem('proteinCalcLang', lang);
@@ -372,317 +375,330 @@ export default function ProteinCalculator() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4 sm:p-8">
-      <div className="max-w-4xl mx-auto">
-        {/* Language Switcher */}
-        <div className="flex justify-end mb-4">
-          <div className="bg-white rounded-lg shadow-md p-2 flex items-center gap-2">
-            <Globe className="w-4 h-4 text-gray-600" />
-            <button
-              onClick={() => handleLanguageChange('en')}
-              className={`px-3 py-1 rounded transition ${language === 'en' ? 'bg-indigo-600 text-white' : 'text-gray-600 hover:bg-gray-100'}`}
-            >
-              EN
-            </button>
-            <button
-              onClick={() => handleLanguageChange('es')}
-              className={`px-3 py-1 rounded transition ${language === 'es' ? 'bg-indigo-600 text-white' : 'text-gray-600 hover:bg-gray-100'}`}
-            >
-              ES
-            </button>
-            <button
-              onClick={() => handleLanguageChange('hi')}
-              className={`px-3 py-1 rounded transition ${language === 'hi' ? 'bg-indigo-600 text-white' : 'text-gray-600 hover:bg-gray-100'}`}
-            >
-              HI
-            </button>
-          </div>
-        </div>
-
-        {/* Header */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-indigo-600 rounded-full mb-4">
-            <Calculator className="w-8 h-8 text-white" />
-          </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            {t.title}
-          </h1>
-          <p className="text-gray-600 text-lg">
-            {t.subtitle}
-          </p>
-        </div>
-
-        {/* Calculator Card */}
-        <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 mb-6">
-          {/* Weight Input */}
-          <div className="mb-6">
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              {t.weight}
-            </label>
-            <div className="flex gap-3">
-              <input
-                type="number"
-                value={weight}
-                onChange={(e) => setWeight(e.target.value)}
-                placeholder={t.weightPlaceholder}
-                className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-lg"
-              />
-              <select
-                value={unit}
-                onChange={(e) => setUnit(e.target.value)}
-                className="px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-lg font-medium"
+    <>
+      <Navigation />
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4 sm:p-8">
+        <div className="max-w-4xl mx-auto">
+          {/* Language Switcher */}
+          <div className="flex justify-end mb-4">
+            <div className="bg-white rounded-lg shadow-md p-2 flex items-center gap-2">
+              <Globe className="w-4 h-4 text-gray-600" />
+              <button
+                onClick={() => handleLanguageChange('en')}
+                className={`px-3 py-1 rounded transition ${language === 'en' ? 'bg-indigo-600 text-white' : 'text-gray-600 hover:bg-gray-100'}`}
               >
-                <option value="lbs">lbs</option>
-                <option value="kg">kg</option>
-              </select>
+                EN
+              </button>
+              <button
+                onClick={() => handleLanguageChange('es')}
+                className={`px-3 py-1 rounded transition ${language === 'es' ? 'bg-indigo-600 text-white' : 'text-gray-600 hover:bg-gray-100'}`}
+              >
+                ES
+              </button>
+              <button
+                onClick={() => handleLanguageChange('hi')}
+                className={`px-3 py-1 rounded transition ${language === 'hi' ? 'bg-indigo-600 text-white' : 'text-gray-600 hover:bg-gray-100'}`}
+              >
+                HI
+              </button>
             </div>
           </div>
 
-          {/* Activity Level */}
-          <div className="mb-6">
-            <label className="block text-sm font-semibold text-gray-700 mb-3">
-              {t.activityLevel}
-            </label>
-            <div className="space-y-2">
-              {Object.keys(activityLevels).map((key) => (
-                <label
-                  key={key}
-                  className={`flex items-center p-3 border-2 rounded-lg cursor-pointer transition ${
-                    activity === key
-                      ? 'border-indigo-500 bg-indigo-50'
-                      : 'border-gray-200 hover:border-gray-300'
-                  }`}
+          {/* Header */}
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-indigo-600 rounded-full mb-4">
+              <Calculator className="w-8 h-8 text-white" />
+            </div>
+            <h1 className="text-4xl font-bold text-gray-900 mb-2">
+              {t.title}
+            </h1>
+            <p className="text-gray-600 text-lg">
+              {t.subtitle}
+            </p>
+          </div>
+
+          {/* Calculator Card */}
+          <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 mb-6">
+            {/* Weight Input */}
+            <div className="mb-6">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                {t.weight}
+              </label>
+              <div className="flex gap-3">
+                <input
+                  type="number"
+                  value={weight}
+                  onChange={(e) => setWeight(e.target.value)}
+                  placeholder={t.weightPlaceholder}
+                  className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-lg"
+                />
+                <select
+                  value={unit}
+                  onChange={(e) => setUnit(e.target.value)}
+                  className="px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-lg font-medium"
                 >
-                  <input
-                    type="radio"
-                    name="activity"
-                    value={key}
-                    checked={activity === key}
-                    onChange={(e) => setActivity(e.target.value)}
-                    className="w-4 h-4 text-indigo-600"
-                  />
-                  <span className="ml-3 text-gray-700">{t.activities[key]}</span>
-                </label>
-              ))}
+                  <option value="lbs">lbs</option>
+                  <option value="kg">kg</option>
+                </select>
+              </div>
             </div>
-          </div>
 
-          {/* Goal */}
-          <div className="mb-6">
-            <label className="block text-sm font-semibold text-gray-700 mb-3">
-              {t.goal}
-            </label>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              {Object.keys(goals).map((key) => {
-                const Icon = key === 'lose' ? TrendingUp : key === 'maintain' ? Target : Activity;
-                return (
+            {/* Activity Level */}
+            <div className="mb-6">
+              <label className="block text-sm font-semibold text-gray-700 mb-3">
+                {t.activityLevel}
+              </label>
+              <div className="space-y-2">
+                {Object.keys(activityLevels).map((key) => (
                   <label
                     key={key}
-                    className={`flex flex-col items-center p-4 border-2 rounded-lg cursor-pointer transition ${
-                      goal === key
+                    className={`flex items-center p-3 border-2 rounded-lg cursor-pointer transition ${
+                      activity === key
                         ? 'border-indigo-500 bg-indigo-50'
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
                   >
                     <input
                       type="radio"
-                      name="goal"
+                      name="activity"
                       value={key}
-                      checked={goal === key}
-                      onChange={(e) => setGoal(e.target.value)}
-                      className="sr-only"
+                      checked={activity === key}
+                      onChange={(e) => setActivity(e.target.value)}
+                      className="w-4 h-4 text-indigo-600"
                     />
-                    <Icon className={`w-6 h-6 mb-2 ${goal === key ? 'text-indigo-600' : 'text-gray-400'}`} />
-                    <span className="text-sm font-medium text-gray-700 text-center">{t.goals[key]}</span>
+                    <span className="ml-3 text-gray-700">{t.activities[key]}</span>
                   </label>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Calculate Button */}
-          <button
-            onClick={calculateProtein}
-            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-6 rounded-lg transition text-lg shadow-lg hover:shadow-xl"
-          >
-            {t.calculate}
-          </button>
-        </div>
-
-        {/* Results */}
-        {result && (
-          <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 animate-fade-in">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-              {t.resultsTitle}
-            </h2>
-            
-            {/* Main Result */}
-            <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl p-6 mb-6 text-center">
-              <div className="text-white text-6xl font-bold mb-2">
-                {result.daily}g
-              </div>
-              <div className="text-indigo-100 text-lg">
-                {t.perDay}
-              </div>
-              <div className="text-indigo-200 text-sm mt-2">
-                {t.range}: {result.min}g - {result.max}g
-              </div>
-            </div>
-
-            {/* Breakdown */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-              <div className="bg-gray-50 rounded-lg p-4 text-center">
-                <div className="text-3xl font-bold text-gray-900 mb-1">
-                  {result.perMeal}g
-                </div>
-                <div className="text-gray-600 text-sm">{t.perMeal}</div>
-              </div>
-              <div className="bg-gray-50 rounded-lg p-4 text-center">
-                <div className="text-3xl font-bold text-gray-900 mb-1">
-                  {Math.round(result.daily / result.weightKg * 10) / 10}g
-                </div>
-                <div className="text-gray-600 text-sm">{t.perKg}</div>
-              </div>
-            </div>
-
-            {/* Tips */}
-            <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
-              <h3 className="font-semibold text-gray-900 mb-2">💡 {t.tipsTitle}</h3>
-              <ul className="text-sm text-gray-700 space-y-1">
-                {t.tips.map((tip, idx) => (
-                  <li key={idx}>• {tip}</li>
                 ))}
-              </ul>
+              </div>
             </div>
+
+            {/* Goal */}
+            <div className="mb-6">
+              <label className="block text-sm font-semibold text-gray-700 mb-3">
+                {t.goal}
+              </label>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {Object.keys(goals).map((key) => {
+                  const Icon = key === 'lose' ? TrendingUp : key === 'maintain' ? Target : Activity;
+                  return (
+                    <label
+                      key={key}
+                      className={`flex flex-col items-center p-4 border-2 rounded-lg cursor-pointer transition ${
+                        goal === key
+                          ? 'border-indigo-500 bg-indigo-50'
+                          : 'border-gray-200 hover:border-gray-300'
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="goal"
+                        value={key}
+                        checked={goal === key}
+                        onChange={(e) => setGoal(e.target.value)}
+                        className="sr-only"
+                      />
+                      <Icon className={`w-6 h-6 mb-2 ${goal === key ? 'text-indigo-600' : 'text-gray-400'}`} />
+                      <span className="text-sm font-medium text-gray-700 text-center">{t.goals[key]}</span>
+                    </label>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Calculate Button */}
+            <button
+              onClick={calculateProtein}
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-6 rounded-lg transition text-lg shadow-lg hover:shadow-xl"
+            >
+              {t.calculate}
+            </button>
           </div>
-        )}
 
-        {/* Footer Info */}
-        <div className="mt-8 text-center text-gray-600 text-sm">
-          <p>{t.disclaimer1}</p>
-          <p className="mt-1">{t.disclaimer2}</p>
-        </div>
-
-        {/* SEO Content Section */}
-        <div className="mt-12 bg-white rounded-2xl shadow-xl p-8 max-w-4xl mx-auto">
-          <article className="prose prose-lg max-w-none">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              {t.seoTitle}
-            </h2>
-            
-            <p className="text-gray-700 text-lg leading-relaxed mb-6">
-              {t.seoIntro1}
-            </p>
-
-            <p className="text-gray-700 text-lg leading-relaxed mb-8">
-              {t.seoIntro2}
-            </p>
-
-            {/* Benefits Section */}
-            <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">
-              {t.benefitsTitle}
-            </h3>
-            
-            <div className="grid md:grid-cols-2 gap-4 mb-8">
-              {t.benefits.map((benefit, idx) => (
-                <div key={idx} className={`p-5 rounded-lg ${
-                  idx === 0 ? 'bg-blue-50' : 
-                  idx === 1 ? 'bg-green-50' : 
-                  idx === 2 ? 'bg-purple-50' : 'bg-orange-50'
-                }`}>
-                  <h4 className="font-semibold text-gray-900 mb-2">{benefit.icon} {benefit.title}</h4>
-                  <p className="text-gray-700 text-sm">{benefit.desc}</p>
+          {/* Results */}
+          {result && (
+            <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 animate-fade-in">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+                {t.resultsTitle}
+              </h2>
+              
+              {/* Main Result */}
+              <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl p-6 mb-6 text-center">
+                <div className="text-white text-6xl font-bold mb-2">
+                  {result.daily}g
                 </div>
-              ))}
-            </div>
+                <div className="text-indigo-100 text-lg">
+                  {t.perDay}
+                </div>
+                <div className="text-indigo-200 text-sm mt-2">
+                  {t.range}: {result.min}g - {result.max}g
+                </div>
+              </div>
 
-            {/* Protein by Activity Level */}
-            <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">
-              {t.requirementsTitle}
-            </h3>
-            
-            <div className="overflow-x-auto mb-8">
-              <table className="min-w-full bg-white border border-gray-200">
-                <thead className="bg-gray-100">
-                  <tr>
-                    {t.tableHeaders.map((header, idx) => (
-                      <th key={idx} className="px-6 py-3 text-left text-sm font-semibold text-gray-900">
-                        {header}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  {t.tableRows.map((row, idx) => (
-                    <tr key={idx}>
-                      {row.map((cell, cellIdx) => (
-                        <td key={cellIdx} className={`px-6 py-4 text-sm ${cellIdx === 0 ? 'text-gray-900' : 'text-gray-700'}`}>
-                          {cell}
-                        </td>
+              {/* Breakdown */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                <div className="bg-gray-50 rounded-lg p-4 text-center">
+                  <div className="text-3xl font-bold text-gray-900 mb-1">
+                    {result.perMeal}g
+                  </div>
+                  <div className="text-gray-600 text-sm">{t.perMeal}</div>
+                </div>
+                <div className="bg-gray-50 rounded-lg p-4 text-center">
+                  <div className="text-3xl font-bold text-gray-900 mb-1">
+                    {Math.round(result.daily / result.weightKg * 10) / 10}g
+                  </div>
+                  <div className="text-gray-600 text-sm">{t.perKg}</div>
+                </div>
+              </div>
+
+              {/* Tips */}
+              <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
+                <h3 className="font-semibold text-gray-900 mb-2">💡 {t.tipsTitle}</h3>
+                <ul className="text-sm text-gray-700 space-y-1">
+                  {t.tips.map((tip, idx) => (
+                    <li key={idx}>• {tip}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )}
+
+          {/* Footer Info */}
+          <div className="mt-8 text-center text-gray-600 text-sm">
+            <p>{t.disclaimer1}</p>
+            <p className="mt-1">{t.disclaimer2}</p>
+          </div>
+
+          {/* SEO Content Section */}
+          <div className="mt-12 bg-white rounded-2xl shadow-xl p-8 max-w-4xl mx-auto">
+            <article className="prose prose-lg max-w-none">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                {t.seoTitle}
+              </h2>
+              
+              <p className="text-gray-700 text-lg leading-relaxed mb-6">
+                {t.seoIntro1}
+              </p>
+
+              <p className="text-gray-700 text-lg leading-relaxed mb-8">
+                {t.seoIntro2}
+              </p>
+
+              {/* Benefits Section */}
+              <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">
+                {t.benefitsTitle}
+              </h3>
+              
+              <div className="grid md:grid-cols-2 gap-4 mb-8">
+                {t.benefits.map((benefit, idx) => (
+                  <div key={idx} className={`p-5 rounded-lg ${
+                    idx === 0 ? 'bg-blue-50' : 
+                    idx === 1 ? 'bg-green-50' : 
+                    idx === 2 ? 'bg-purple-50' : 'bg-orange-50'
+                  }`}>
+                    <h4 className="font-semibold text-gray-900 mb-2">{benefit.icon} {benefit.title}</h4>
+                    <p className="text-gray-700 text-sm">{benefit.desc}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Protein by Activity Level */}
+              <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">
+                {t.requirementsTitle}
+              </h3>
+              
+              <div className="overflow-x-auto mb-8">
+                <table className="min-w-full bg-white border border-gray-200">
+                  <thead className="bg-gray-100">
+                    <tr>
+                      {t.tableHeaders.map((header, idx) => (
+                        <th key={idx} className="px-6 py-3 text-left text-sm font-semibold text-gray-900">
+                          {header}
+                        </th>
                       ))}
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            {/* High-Protein Foods */}
-            <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">
-              {t.foodsTitle}
-            </h3>
-            
-            <p className="text-gray-700 mb-4">
-              {t.foodsIntro}
-            </p>
-
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
-              <div>
-                <h4 className="font-semibold text-gray-900 mb-3">🥩 {t.animalSources}</h4>
-                <ul className="space-y-2 text-gray-700">
-                  {t.animalFoods.map((food, idx) => (
-                    <li key={idx}><strong>{food.split(' - ')[0]}</strong> - {food.split(' - ')[1]}</li>
-                  ))}
-                </ul>
+                  </thead>
+                  <tbody className="divide-y divide-gray-200">
+                    {t.tableRows.map((row, idx) => (
+                      <tr key={idx}>
+                        {row.map((cell, cellIdx) => (
+                          <td key={cellIdx} className={`px-6 py-4 text-sm ${cellIdx === 0 ? 'text-gray-900' : 'text-gray-700'}`}>
+                            {cell}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
+
+              {/* High-Protein Foods */}
+              <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">
+                {t.foodsTitle}
+              </h3>
               
-              <div>
-                <h4 className="font-semibold text-gray-900 mb-3">🌱 {t.plantSources}</h4>
-                <ul className="space-y-2 text-gray-700">
-                  {t.plantFoods.map((food, idx) => (
-                    <li key={idx}><strong>{food.split(' - ')[0]}</strong> - {food.split(' - ')[1]}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+              <p className="text-gray-700 mb-4">
+                {t.foodsIntro}
+              </p>
 
-            {/* FAQ Section */}
-            <h3 className="text-2xl font-bold text-gray-900 mb-6 mt-8">
-              {t.faqTitle}
-            </h3>
-
-            <div className="space-y-6">
-              {t.faqs.map((faq, idx) => (
-                <div key={idx} className="border-l-4 border-indigo-500 pl-4 py-2">
-                  <h4 className="font-semibold text-gray-900 mb-2">{faq.q}</h4>
-                  <p className="text-gray-700">{faq.a}</p>
+              <div className="grid md:grid-cols-2 gap-6 mb-8">
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-3">🥩 {t.animalSources}</h4>
+                  <ul className="space-y-2 text-gray-700">
+                    {t.animalFoods.map((food, idx) => (
+                      <li key={idx}><strong>{food.split(' - ')[0]}</strong> - {food.split(' - ')[1]}</li>
+                    ))}
+                  </ul>
                 </div>
-              ))}
-            </div>
+                
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-3">🌱 {t.plantSources}</h4>
+                  <ul className="space-y-2 text-gray-700">
+                    {t.plantFoods.map((food, idx) => (
+                      <li key={idx}><strong>{food.split(' - ')[0]}</strong> - {food.split(' - ')[1]}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
 
-            {/* Final CTA */}
-            <div className="mt-12 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl p-8 text-center text-white">
-              <h3 className="text-2xl font-bold mb-3">{t.ctaTitle}</h3>
-              <p className="text-indigo-100 mb-6">{t.ctaSubtitle}</p>
-              <button 
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                className="bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-indigo-50 transition"
-              >
-                {t.ctaButton}
-              </button>
-            </div>
-          </article>
+              {/* FAQ Section */}
+              <h3 className="text-2xl font-bold text-gray-900 mb-6 mt-8">
+                {t.faqTitle}
+              </h3>
+
+              <div className="space-y-6">
+                {t.faqs.map((faq, idx) => (
+                  <div key={idx} className="border-l-4 border-indigo-500 pl-4 py-2">
+                    <h4 className="font-semibold text-gray-900 mb-2">{faq.q}</h4>
+                    <p className="text-gray-700">{faq.a}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Final CTA */}
+              <div className="mt-12 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl p-8 text-center text-white">
+                <h3 className="text-2xl font-bold mb-3">{t.ctaTitle}</h3>
+                <p className="text-indigo-100 mb-6">{t.ctaSubtitle}</p>
+                <button 
+                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                  className="bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-indigo-50 transition"
+                >
+                  {t.ctaButton}
+                </button>
+              </div>
+            </article>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
+```
+
+---
+
+## That's it! Just copy and paste this entire code into your App.jsx file.
+
+The key changes:
+- Added `import Navigation from './Navigation'` at top
+- Added `<Navigation />` at the beginning of return
+- Wrapped everything in `<>`
