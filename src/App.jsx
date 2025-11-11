@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Calculator, Activity, Target, TrendingUp, Globe } from 'lucide-react';
 import Navigation from './Navigation'
+import { Analytics } from '@vercel/analytics/react';
 
 const translations = {
   en: {
